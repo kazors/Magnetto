@@ -35,15 +35,16 @@ public class FileReader {
     
     
 
-    public static void extractData(MainWindow context, File selectedFile, ArrayList<Rayon> listRayon) {
+    public static ArrayList<Rayon> extractData(MainWindow context, File selectedFile, ArrayList<Rayon> listRayon) {
         FileInputStream fis= null;
         try {
             fis = new FileInputStream(selectedFile);
-            System.out.println("bite");
+            
             Workbook excelFile = WorkbookFactory.create(selectedFile);
             
             Sheet dataSheet = excelFile.getSheetAt(1);
             createAllObject(dataSheet, listRayon);
+            return listRayon;
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Le fichier n\'éxiste pas", "Attention",JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
@@ -61,19 +62,38 @@ public class FileReader {
             }
         }
         
+        return null;
     }
 
     private static void createAllObject(Sheet dataSheet, ArrayList<Rayon> listRayon) {
-        boolean endOfFile = false;
-        int compteur = 1;
-        while(!endOfFile){
-            
-            Row currentLine = dataSheet.getRow(compteur);
-            String nomRayon="";
-            if(currentLine != null && currentLine.getCell(3)!=null &&  currentLine.getCell(3).getStringCellValue()!=null && currentLine.getCell(3).getStringCellValue().compareTo("")!=0){
-            int indexOfEndOfRayon = 0;
-            boolean stop= false;
-            for(char c :  currentLine.getCell(3).getStringCellValue().toCharArray() ){
+       for(int i=1;i<=dataSheet.getLastRowNum();i++){
+         Row currentLine = dataSheet.getRow(i);
+         if(currentLine.getCell(3)!= null && !"".equals(currentLine.getCell(3).getStringCellValue())){
+         String currentRayon = getEmplacement(currentLine);
+           //System.out.println(" Rayon : "+ currentRayon);
+             System.out.println("nouvelle article");
+         Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), currentLine.getCell(1).getStringCellValue(),currentLine.getCell(2).getStringCellValue() ,(int)currentLine.getCell(4).getNumericCellValue(),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
+       if(listRayon.size()==0 || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
+           listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
+           System.out.println("-------------------------------------");
+           System.out.println("nouveau rayon");
+       }
+       listRayon.get(listRayon.size()-1).getListArticle().add(currentArticle);
+       }
+       }
+        
+    }
+
+    
+    
+    
+
+    
+    public static String getEmplacement(Row currentLine){
+        
+        boolean stop=false;
+        String nomRayon="";
+         for(char c :  currentLine.getCell(3).getStringCellValue().toCharArray() ){
                 
                     if(!stop){
                     nomRayon+=c;
@@ -82,44 +102,7 @@ public class FileReader {
                     }
                     }
             }
-            
-                
-            }else{
-                
-                    endOfFile=true;
-                    
-                
-            }
-            if(!listRayon.contains(new Rayon(nomRayon, new ArrayList<Article>()))){
-            listRayon.add(new Rayon(nomRayon, new ArrayList<Article>()));
-            }
-            
-            compteur++;
-        }
-        createArticle(listRayon, dataSheet);
-        
+         
+         return nomRayon;
     }
-
-    private static void createArticle(ArrayList<Rayon> listRayon, Sheet dataSheet) {
-        int compteur = 1;
-        for(Rayon rayon : listRayon){
-             String nomRayon = rayon.getCodeRayon();
-             boolean endOfFile = false;
-        Row currentline = dataSheet.getRow(compteur);
-        while(!endOfFile && currentline != null && currentline.getCell(3)!=null &&  currentline.getCell(3).getStringCellValue()!=null && currentline.getCell(3).getStringCellValue().compareTo("")!=0 && dataSheet.getRow(compteur).getCell(3).getStringCellValue().startsWith(nomRayon)){
-                
-            
-           
-                System.out.println("emplacement : "+ currentline.getCell(3).getStringCellValue()+" rayon : "+nomRayon+" designation : "+currentline.getCell(2).getStringCellValue());
-                rayon.getListArticle().add(new  Article(currentline.getCell(0).getStringCellValue(), currentline.getCell(1).getStringCellValue(), currentline.getCell(2).getStringCellValue(), (int)(currentline.getCell(4).getNumericCellValue()), currentline.getCell(5).getStringCellValue(), currentline.getCell(3).getStringCellValue()));
-                compteur++;
-                currentline=dataSheet.getRow(compteur);
-            
-        }
-    }
-
-    
-    
-    
-}
 }
