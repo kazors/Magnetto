@@ -26,8 +26,10 @@ public  class FileWriter {
             try {
                 File fichier = new File(rayon.getCodeRayon()+".txt");
                 out = new PrintWriter(fichier);
+                out.print("Emp                  Code MP2                                        Code SAP                                        Unité                                Qte");
+                ;
                 for(Article article : rayon.getListArticle()){
-                    out.print(article.getDesignationArticle());
+                    out.print(article.getEmplacement()+"                  "+article.getAncienCodeArticle()+"                                        "+article.getCodeArticle()+"                                        "+article.getUnité()+"                                ");
                     out.println();
                 }
             } catch (FileNotFoundException ex) {
