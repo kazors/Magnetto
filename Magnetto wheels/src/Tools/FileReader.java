@@ -66,7 +66,7 @@ public class FileReader {
     }
 
     private static void createAllObject(Sheet dataSheet, ArrayList<Rayon> listRayon) {
-       for(int i=1;i<=dataSheet.getLastRowNum();i++){
+       for(int i=2;i<=dataSheet.getLastRowNum();i++){
          Row currentLine = dataSheet.getRow(i);
          if(currentLine.getCell(3)!= null && !"".equals(currentLine.getCell(3).getStringCellValue())){
          String currentRayon = getEmplacement(currentLine);

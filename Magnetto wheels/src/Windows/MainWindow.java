@@ -50,6 +50,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         button2.setLabel("button2");
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         button3.setLabel("button3");
 
@@ -84,11 +89,16 @@ public class MainWindow extends javax.swing.JFrame {
 				    	String nomFichier = selectedFile.toString();
 				    	String ext = nomFichier.substring(nomFichier.lastIndexOf("."));
                                         
-                                            Tools.FileReader.extractData(this,selectedFile,listRayon);
+                                            listRayon=Tools.FileReader.extractData(this,selectedFile,listRayon);
                                             
                                         
                                     }
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        Tools.FileWriter.generateFile(listRayon);  
+        System.out.println("yolo");// TODO add your handling code here:
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments
