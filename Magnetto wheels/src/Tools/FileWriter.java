@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public  class FileWriter {
     public static void generateFile(ArrayList<Rayon> listRayon){
-        System.out.println("priut");
+        
         for(Rayon rayon : listRayon){
             PrintWriter out = null;
             try {
@@ -29,15 +29,16 @@ public  class FileWriter {
                 out.print("Emp                  Code MP2                                        Code SAP                                        Unité                                Qte");
                 ;
                 for(Article article : rayon.getListArticle()){
-                    out.print(article.getEmplacement()+"                  "+article.getAncienCodeArticle()+"                                        "+article.getCodeArticle()+"                                        "+article.getUnité()+"                                ");
+                    out.println(article.getEmplacement()+"                  "+article.getAncienCodeArticle()+"                                        "+article.getCodeArticle()+"                                        "+article.getUnite()+"                                ");
                     out.println();
+                    
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(FileWriter.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 out.close();
             }
-            System.out.println("j'ai fini mdr");
+            
         }
     }
 }

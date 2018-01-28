@@ -16,15 +16,16 @@ public class Article {
     private String codeArticle;
     private String designationArticle;
     private int stockDisponible;
-    private String unité;
+    private String unite;
     private String emplacement;
-
-    public Article(String ancienCodeArticle ,String codeArticle, String designationArticle, int stockDisponible, String unité, String emplacement) {
+    private int stockTrouve;
+    
+    public Article(String ancienCodeArticle ,String codeArticle, String designationArticle, int stockDisponible, String unite, String emplacement) {
         this.ancienCodeArticle=ancienCodeArticle;
         this.codeArticle = codeArticle;
         this.designationArticle = designationArticle;
         this.stockDisponible = stockDisponible;
-        this.unité = unité;
+        this.unite = unite;
         this.emplacement = emplacement;
     }
 
@@ -64,12 +65,12 @@ public class Article {
         this.ancienCodeArticle = ancienCodeArticle;
     }
 
-    public String getUnité() {
-        return unité;
+    public String getUnite() {
+        return unite;
     }
 
-    public void setUnité(String unité) {
-        this.unité = unité;
+    public void setUnite(String unite) {
+        this.unite = unite;
     }
 
    
@@ -81,6 +82,15 @@ public class Article {
     public void setEmplacement(String emplacement) {
         this.emplacement = emplacement;
     }
+
+    public int getStockTrouve() {
+        return stockTrouve;
+    }
+
+    public void setStockTrouve(int stockTrouve) {
+        this.stockTrouve = stockTrouve;
+    }
+    
     
     
 }

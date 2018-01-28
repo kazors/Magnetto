@@ -6,9 +6,14 @@
 package Windows;
 
 import Object.Rayon;
+import java.awt.Button;
+
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import java.awt.Cursor;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,8 +45,11 @@ public class MainWindow extends javax.swing.JFrame {
         button3 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
 
-        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        button1.setActionCommand("Selectionnez le fichier  excel de l'inventaire ");
+        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         button1.setLabel("Selectionnez le fichier excel de l'inventaire ");
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,8 +71,8 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97)
                 .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -72,9 +80,11 @@ public class MainWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-            .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
             .addComponent(button3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,10 +96,10 @@ public class MainWindow extends javax.swing.JFrame {
 				    int result = fileChooser.showOpenDialog(this);
 				    if (result==JFileChooser.APPROVE_OPTION){
                                      selectedFile = fileChooser.getSelectedFile();			        	
-				    	String nomFichier = selectedFile.toString();
-				    	String ext = nomFichier.substring(nomFichier.lastIndexOf("."));
-                                        
-                                            listRayon=Tools.FileReader.extractData(this,selectedFile,listRayon);
+				    	
+				    	
+                                        listRayon=Tools.FileReader.extractData(this,selectedFile,listRayon);
+                                           
                                             
                                         
                                     }
@@ -141,4 +151,47 @@ public class MainWindow extends javax.swing.JFrame {
     private java.awt.Button button2;
     private java.awt.Button button3;
     // End of variables declaration//GEN-END:variables
+
+    public File getSelectedFile() {
+        return selectedFile;
+    }
+
+    public void setSelectedFile(File selectedFile) {
+        this.selectedFile = selectedFile;
+    }
+
+    public ArrayList<Rayon> getListRayon() {
+        return listRayon;
+    }
+
+    public void setListRayon(ArrayList<Rayon> listRayon) {
+        this.listRayon = listRayon;
+    }
+
+    public Button getButton1() {
+        return button1;
+    }
+
+    public void setButton1(Button button1) {
+        this.button1 = button1;
+    }
+
+    public Button getButton2() {
+        return button2;
+    }
+
+    public void setButton2(Button button2) {
+        this.button2 = button2;
+    }
+
+    public Button getButton3() {
+        return button3;
+    }
+
+    public void setButton3(Button button3) {
+        this.button3 = button3;
+    }
+
+    
+
 }

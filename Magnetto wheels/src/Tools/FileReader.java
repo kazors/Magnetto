@@ -67,20 +67,24 @@ public class FileReader {
 
     private static void createAllObject(Sheet dataSheet, ArrayList<Rayon> listRayon) {
        for(int i=2;i<=dataSheet.getLastRowNum();i++){
+           
          Row currentLine = dataSheet.getRow(i);
          if(currentLine.getCell(3)!= null && !"".equals(currentLine.getCell(3).getStringCellValue())){
          String currentRayon = getEmplacement(currentLine);
            //System.out.println(" Rayon : "+ currentRayon);
-             System.out.println("nouvelle article");
+             
          Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), currentLine.getCell(1).getStringCellValue(),currentLine.getCell(2).getStringCellValue() ,(int)currentLine.getCell(4).getNumericCellValue(),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
-       if(listRayon.size()==0 || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
+       if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
            listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
-           System.out.println("-------------------------------------");
-           System.out.println("nouveau rayon");
+           
        }
        listRayon.get(listRayon.size()-1).getListArticle().add(currentArticle);
        }
        }
+        
+    }
+    
+    private static void readCompleteTxtFile(){
         
     }
 
