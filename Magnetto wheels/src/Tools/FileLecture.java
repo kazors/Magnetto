@@ -8,11 +8,15 @@ package Tools;
 import Object.Article;
 import Object.Rayon;
 import Windows.MainWindow;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +34,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  *
  * @author moi
  */
-public class FileReader {
+public class FileLecture {
     
     
     
@@ -52,13 +56,13 @@ public class FileReader {
         } catch (InvalidFormatException ex) {
             JOptionPane.showMessageDialog(null,"Verifiez le type de fichier","Erreur",JOptionPane.ERROR_MESSAGE);
         } catch (EncryptedDocumentException ex) {
-            Logger.getLogger(FileReader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if(fis!=null)
                 fis.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileReader.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -108,5 +112,24 @@ public class FileReader {
             }
          
          return nomRayon;
+    }
+
+    public static void ReadCompleteFile(File[] selectedFiles , ArrayList<Rayon> listRayon) {
+        for(File currentFile : selectedFiles){
+            try {
+                FileReader fileReader = new FileReader(currentFile);
+                
+                BufferedReader reader = new BufferedReader(fileReader);
+                String line= reader.readLine() ;
+                while((line = reader.readLine())!=null){
+                    String[] lineDecomp = line.split("  ");
+                    
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

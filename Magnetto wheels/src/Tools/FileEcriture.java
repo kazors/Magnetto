@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author moi
  */
-public  class FileWriter {
+public  class FileEcriture {
     public static void generateFile(ArrayList<Rayon> listRayon){
         
         for(Rayon rayon : listRayon){
@@ -34,7 +34,7 @@ public  class FileWriter {
                     
                 }
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(FileWriter.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 out.close();
             }

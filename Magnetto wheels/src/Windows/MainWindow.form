@@ -27,10 +27,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="button1" pref="293" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="button2" min="-2" pref="147" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+              <Component id="button1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <Component id="button2" min="-2" pref="326" max="-2" attributes="0"/>
+              <EmptySpace pref="126" max="32767" attributes="0"/>
               <Component id="button3" min="-2" pref="91" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -38,7 +38,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="button2" alignment="0" pref="393" max="32767" attributes="0"/>
+          <Component id="button2" alignment="0" pref="498" max="32767" attributes="0"/>
           <Component id="button3" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -50,14 +50,14 @@
   <SubComponents>
     <Component class="java.awt.Button" name="button1">
       <Properties>
-        <Property name="actionCommand" type="java.lang.String" value="Selectionnez le fichier  excel de l&apos;inventaire "/>
+        <Property name="actionCommand" type="java.lang.String" value="Selectionnez le fichier  excel de l&apos;inventaireet g&#xe9;n&#xe9;rer les fichier texte "/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Curseur en forme de main"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
-        <Property name="label" type="java.lang.String" value="Selectionnez le fichier excel de l&apos;inventaire "/>
+        <Property name="label" type="java.lang.String" value="Selectionnez le fichier excel de l&apos;inventaire et g&#xe9;n&#xe9;rer les fichiers textes "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
@@ -65,7 +65,7 @@
     </Component>
     <Component class="java.awt.Button" name="button2">
       <Properties>
-        <Property name="label" type="java.lang.String" value="button2"/>
+        <Property name="label" type="java.lang.String" value="Lire les fichiers textes remplis"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
