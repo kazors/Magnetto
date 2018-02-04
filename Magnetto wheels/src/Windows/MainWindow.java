@@ -12,6 +12,8 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import java.awt.Cursor;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -108,10 +110,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
+        List<File> test = Arrays.asList(fileChooser.getCurrentDirectory().listFiles());
         if(result== JFileChooser.APPROVE_OPTION){
-            Tools.FileLecture.ReadCompleteFile(fileChooser.getSelectedFiles(), listRayon);
+            List<File> d = Arrays.asList(fileChooser.getSelectedFile().listFiles());
+            Tools.FileLecture.ReadCompleteFile(d , listRayon);
+            Tools.FileEcriture.remplirFichierExcel(selectedFile);
         }
                 
     }//GEN-LAST:event_button2ActionPerformed

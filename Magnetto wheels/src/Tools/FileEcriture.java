@@ -22,14 +22,19 @@ public  class FileEcriture {
     public static void generateFile(ArrayList<Rayon> listRayon){
         
         for(Rayon rayon : listRayon){
+            int compteur = 0;
             PrintWriter out = null;
             try {
-                File fichier = new File(rayon.getCodeRayon()+".txt");
+                File fichier = new File("fichierText\\" + rayon.getCodeRayon()+".txt");
+                if(!fichier.getParentFile().exists()){
+                    fichier.getParentFile().mkdir();
+                }
                 out = new PrintWriter(fichier);
-                out.print("Emp                  Code MP2                                        Code SAP                                        Unité                                Qte");
-                ;
+                out.println("Emp                  Code MP2                                        Code SAP                                        Unité                                Qte");
+                
                 for(Article article : rayon.getListArticle()){
-                    out.println(article.getEmplacement()+"                  "+article.getAncienCodeArticle()+"                                        "+article.getCodeArticle()+"                                        "+article.getUnite()+"                                ");
+                    out.println(article.getEmplacement()+"                  "+article.getAncienCodeArticle()+"                                        "+article.getCodeArticle()+"                                        "+article.getUnite()+"                                "+compteur);
+                    compteur++;
                     out.println();
                     
                 }
@@ -40,5 +45,9 @@ public  class FileEcriture {
             }
             
         }
+    }
+
+    public static void remplirFichierExcel(File selectedFile) {
+        
     }
 }

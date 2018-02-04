@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -114,22 +116,44 @@ public class FileLecture {
          return nomRayon;
     }
 
-    public static void ReadCompleteFile(File[] selectedFiles , ArrayList<Rayon> listRayon) {
+    public static void ReadCompleteFile (List<File> selectedFiles , ArrayList<Rayon> listRayon) {
+        ArrayList<Integer> listValeurSaisie = new ArrayList<Integer>();
         for(File currentFile : selectedFiles){
-            try {
+            
+//           
+           // System.out.println(currentFile.getName());
+try {
+                
+                
+              
+
                 FileReader fileReader = new FileReader(currentFile);
                 
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line= reader.readLine() ;
-                while((line = reader.readLine())!=null){
-                    String[] lineDecomp = line.split("  ");
+                System.out.println(line);
+                while((line = reader.readLine())!=null){  
+                    reader.readLine();
+                    System.out.println("La LIGNE : "+ line);
+                    System.out.println("Le TABLEAU "+ line.split("  ").toString());
+                    listValeurSaisie.add( !"".equals(line.split("  ")[4]) ?Integer.parseInt(line.split("  ")[4]):0);
                     
                 }
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
             }
+            }
+        int compteur =0;
+        for(Rayon rayon: listRayon){
+            for(Article article : rayon.getListArticle()){
+                article.setStockTrouve(listValeurSaisie.get(compteur));
+                compteur++;
+                System.out.println(article.getDesignationArticle()+" qte SAP : "+article.getStockDisponible()+" qte trouve : "+article.getStockTrouve());
+            }
         }
+        
     }
 }
