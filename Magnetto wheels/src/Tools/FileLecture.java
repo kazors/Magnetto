@@ -48,8 +48,10 @@ public class FileLecture {
             
             Workbook excelFile = WorkbookFactory.create(selectedFile);
             
-            Sheet dataSheet = excelFile.getSheetAt(1);
+            Sheet dataSheet = excelFile.getSheetAt(0);
             createAllObject(dataSheet, listRayon);
+            excelFile.close();
+            fis.close();
             return listRayon;
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Le fichier n\'éxiste pas", "Attention",JOptionPane.ERROR_MESSAGE);
@@ -61,6 +63,7 @@ public class FileLecture {
             Logger.getLogger(FileLecture.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
+                
                 if(fis!=null)
                 fis.close();
             } catch (IOException ex) {
@@ -79,7 +82,7 @@ public class FileLecture {
          String currentRayon = getEmplacement(currentLine);
            //System.out.println(" Rayon : "+ currentRayon);
              
-         Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), currentLine.getCell(1).getStringCellValue(),currentLine.getCell(2).getStringCellValue() ,(int)currentLine.getCell(4).getNumericCellValue(),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
+         Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), currentLine.getCell(1).getStringCellValue(),currentLine.getCell(2).getStringCellValue() ,Integer.getInteger(currentLine.getCell(4).getStringCellValue()),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
        if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
            listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
            
@@ -134,9 +137,9 @@ try {
                 System.out.println(line);
                 while((line = reader.readLine())!=null){  
                     reader.readLine();
-                    System.out.println("La LIGNE : "+ line);
-                    System.out.println("Le TABLEAU "+ line.split("  ").toString());
-                    listValeurSaisie.add( !"".equals(line.split("  ")[4]) ?Integer.parseInt(line.split("  ")[4]):0);
+                   
+                    String[] tab = line.split("  ");
+                    listValeurSaisie.add( !"".equals(tab[tab.length-1]) && tab[tab.length-1]!=null ?Integer.parseInt(tab[tab.length-1]):0);
                     
                 }
 
@@ -151,7 +154,7 @@ try {
             for(Article article : rayon.getListArticle()){
                 article.setStockTrouve(listValeurSaisie.get(compteur));
                 compteur++;
-                System.out.println(article.getDesignationArticle()+" qte SAP : "+article.getStockDisponible()+" qte trouve : "+article.getStockTrouve());
+                
             }
         }
         

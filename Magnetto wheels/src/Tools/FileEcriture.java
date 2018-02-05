@@ -9,6 +9,7 @@ import Object.Article;
 import Object.Rayon;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.formula.functions.Column;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -47,6 +51,7 @@ public  class FileEcriture {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
+                
                 out.close();
             }
             
@@ -56,16 +61,22 @@ public  class FileEcriture {
     public static void remplirFichierExcel(File selectedFile, ArrayList<Rayon> list) {
         try {
             Workbook wb = WorkbookFactory.create(selectedFile);
-            Sheet sheet  =wb.getSheetAt(1);
+            Sheet sheet  =wb.getSheetAt(0);
                 int i = 0;
                 for(Rayon rayon : list){
                     for(Article article : rayon.getListArticle()){
                     int compteurs = 0;
+                    
+                 sheet.getRow(i).getCell(6).setCellFormula(null);
+                sheet.getRow(i).getCell(6).setCellType(CellType.STRING);
+                
                 sheet.getRow(i).getCell(6).setCellValue(rayon.getListArticle().get(compteurs).getStockTrouve());
+                                          
                 i++;
                     }
                 }
-            
+                
+            wb.close();
         } catch (IOException ex) {
             Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
