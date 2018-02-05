@@ -117,7 +117,7 @@ public class MainWindow extends javax.swing.JFrame {
         if(result== JFileChooser.APPROVE_OPTION){
             List<File> d = Arrays.asList(fileChooser.getSelectedFile().listFiles());
             Tools.FileLecture.ReadCompleteFile(d , listRayon);
-            Tools.FileEcriture.remplirFichierExcel(selectedFile);
+            Tools.FileEcriture.remplirFichierExcel(selectedFile,listRayon);
         }
                 
     }//GEN-LAST:event_button2ActionPerformed
