@@ -82,7 +82,7 @@ public class FileLecture {
          String currentRayon = getEmplacement(currentLine);
            //System.out.println(" Rayon : "+ currentRayon);
              
-         Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), currentLine.getCell(1).getStringCellValue(),currentLine.getCell(2).getStringCellValue() ,Integer.getInteger(currentLine.getCell(4).getStringCellValue()),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
+         Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), Double.toString(currentLine.getCell(1).getNumericCellValue()),currentLine.getCell(2).getStringCellValue() ,(int)(currentLine.getCell(4).getNumericCellValue()),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
        if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
            listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
            
