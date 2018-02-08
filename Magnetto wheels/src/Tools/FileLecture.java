@@ -78,12 +78,13 @@ public class FileLecture {
        for(int i=2;i<=dataSheet.getLastRowNum();i++){
            
          Row currentLine = dataSheet.getRow(i);
-         if(currentLine.getCell(3)!= null && !"".equals(currentLine.getCell(3).getStringCellValue())){
+         if(testLigne(currentLine)){
          String currentRayon = getEmplacement(currentLine);
            //System.out.println(" Rayon : "+ currentRayon);
              
          Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), Double.toString(currentLine.getCell(1).getNumericCellValue()),currentLine.getCell(2).getStringCellValue() ,(int)(currentLine.getCell(4).getNumericCellValue()),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
-       if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
+             System.out.println(currentArticle.getDesignationArticle());
+         if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
            listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
            
        }
@@ -119,6 +120,14 @@ public class FileLecture {
          return nomRayon;
     }
 
+    
+    private static boolean testLigne(Row currentLine){
+        if(currentLine.getCell(1).getCellType()==CellType.NUMERIC.getCode() && currentLine.getCell(3)!= null && !"".equals(currentLine.getCell(3).getStringCellValue())){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public static void ReadCompleteFile (List<File> selectedFiles , ArrayList<Rayon> listRayon) {
         ArrayList<Integer> listValeurSaisie = new ArrayList<Integer>();
         for(File currentFile : selectedFiles){
@@ -152,11 +161,13 @@ try {
         int compteur =0;
         for(Rayon rayon: listRayon){
             for(Article article : rayon.getListArticle()){
+                System.out.println("li :"+listValeurSaisie.get(compteur));
                 article.setStockTrouve(listValeurSaisie.get(compteur));
                 compteur++;
                 
             }
         }
-        
+        System.out.println("test");
     }
+    
 }

@@ -17,9 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.formula.BaseFormulaEvaluator;
 import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -62,21 +64,31 @@ public  class FileEcriture {
         try {
             Workbook wb = WorkbookFactory.create(selectedFile);
             Sheet sheet  =wb.getSheetAt(0);
-                int i = 0;
+             FormulaEvaluator eval = wb.getCreationHelper().createFormulaEvaluator();
+                int i = 2;
                 for(Rayon rayon : list){
+                    
                     for(Article article : rayon.getListArticle()){
                     int compteurs = 0;
+                    System.out.println("rayo : "+article.getStockTrouve());
                     
                  sheet.getRow(i).getCell(6).setCellFormula(null);
                 sheet.getRow(i).getCell(6).setCellType(CellType.STRING);
                 
-                sheet.getRow(i).getCell(6).setCellValue(rayon.getListArticle().get(compteurs).getStockTrouve());
+                sheet.getRow(i).getCell(6).setCellValue(article.getStockTrouve());
+               
                                           
                 i++;
                     }
                 }
-                
+            eval.evaluateAll();
+            FileOutputStream fis = new FileOutputStream("bite.xlsx");
+            wb.write(fis);
+            
+            fis.close();
             wb.close();
+            new File("bite.xlsx").delete();
+            System.out.println("fini");
         } catch (IOException ex) {
             Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
