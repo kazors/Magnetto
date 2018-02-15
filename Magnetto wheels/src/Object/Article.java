@@ -19,6 +19,7 @@ public class Article {
     private String unite;
     private String emplacement;
     private int stockTrouve;
+    private int ecart;
     
     public Article(String ancienCodeArticle ,String codeArticle, String designationArticle, int stockDisponible, String unite, String emplacement) {
         this.ancienCodeArticle=ancienCodeArticle;
@@ -27,6 +28,7 @@ public class Article {
         this.stockDisponible = stockDisponible;
         this.unite = unite;
         this.emplacement = emplacement;
+        
     }
 
     
@@ -89,6 +91,14 @@ public class Article {
 
     public void setStockTrouve(int stockTrouve) {
         this.stockTrouve = stockTrouve;
+    }
+
+    public int getEcart() {
+        return ecart;
+    }
+
+    public void setEcart(int ecart) {
+        this.ecart = ecart;
     }
     
     

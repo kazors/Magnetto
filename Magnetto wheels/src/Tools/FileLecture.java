@@ -83,7 +83,7 @@ public class FileLecture {
            //System.out.println(" Rayon : "+ currentRayon);
              
          Article currentArticle = new Article(currentLine.getCell(0).getStringCellValue(), Double.toString(currentLine.getCell(1).getNumericCellValue()),currentLine.getCell(2).getStringCellValue() ,(int)(currentLine.getCell(4).getNumericCellValue()),currentLine.getCell(5).getStringCellValue(), currentLine.getCell(3).getStringCellValue());
-             System.out.println(currentArticle.getDesignationArticle());
+             
          if(listRayon.isEmpty() || listRayon.get(listRayon.size()-1).getCodeRayon().compareTo(currentRayon)!=0){
            listRayon.add(new Rayon(currentRayon, new ArrayList<Article>()));
            
@@ -143,7 +143,7 @@ try {
                 
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line= reader.readLine() ;
-                System.out.println(line);
+                
                 while((line = reader.readLine())!=null){  
                     reader.readLine();
                    
@@ -161,13 +161,13 @@ try {
         int compteur =0;
         for(Rayon rayon: listRayon){
             for(Article article : rayon.getListArticle()){
-                System.out.println("li :"+listValeurSaisie.get(compteur));
+                
                 article.setStockTrouve(listValeurSaisie.get(compteur));
                 compteur++;
                 
             }
         }
-        System.out.println("test");
+        
     }
     
 }
