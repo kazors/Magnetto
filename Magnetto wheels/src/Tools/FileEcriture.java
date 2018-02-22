@@ -163,12 +163,13 @@ public  class FileEcriture {
         for(Rayon rayon : listRayon){
                 for(Article article : rayon.getListArticle()){
                     if(article.getEcart()!=0){
-                }
+                
                     sheet.createRow(compteurLigne).createCell(0).setCellValue(article.getAncienCodeArticle());
                     sheet.getRow(compteurLigne).createCell(1).setCellValue(article.getCodeArticle());
                     sheet.getRow(compteurLigne).createCell(2).setCellValue(article.getEmplacement());
                     sheet.getRow(compteurLigne).createCell(3).setCellValue(article.getEcart());
                     compteurLigne++;
+                }
                 }
                 }
     }
