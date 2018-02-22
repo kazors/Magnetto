@@ -25,6 +25,9 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -103,7 +106,11 @@ public  class FileEcriture {
     public static void genererFichierBilan(File selectedFile, ArrayList<Rayon> listRayon) {
         try {
             Workbook wb = WorkbookFactory.create(selectedFile);
+            
+            XSSFWorkbook wb2 = new XSSFWorkbook();
             Sheet sheet = null;
+            generateLastFile(wb2,listRayon);
+
             if(wb.getNumberOfSheets()==2){
                sheet=wb.getSheet("Bilan");
             }else{
@@ -124,12 +131,17 @@ public  class FileEcriture {
                     compteurLigne++;
                 }
             }
+            
+            FileOutputStream fis2 = new FileOutputStream("bilan.xlsx");
             FileOutputStream fis = new FileOutputStream("bite.xlsx");
             wb.write(fis);
-            
+            wb2.write(fis2);
+            fis2.close();
             fis.close();
             wb.close();
+            wb2.close();
             new File("bite.xlsx").delete();
+            
             System.out.println("fini2");
         } catch (IOException ex) {
             Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,5 +150,26 @@ public  class FileEcriture {
         } catch (EncryptedDocumentException ex) {
             Logger.getLogger(FileEcriture.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static void generateLastFile(XSSFWorkbook wb2, ArrayList<Rayon> listRayon) {
+        XSSFSheet sheet = wb2.createSheet();
+        XSSFRow row = sheet.createRow(0);
+        row.createCell(0).setCellValue("Ancien code Article");
+        row.createCell(1).setCellValue("Code SAP");
+        row.createCell(2).setCellValue("Emplacement");
+        row.createCell(3).setCellValue("Ecart");
+        int compteurLigne=1;
+        for(Rayon rayon : listRayon){
+                for(Article article : rayon.getListArticle()){
+                    if(article.getEcart()!=0){
+                }
+                    sheet.createRow(compteurLigne).createCell(0).setCellValue(article.getAncienCodeArticle());
+                    sheet.getRow(compteurLigne).createCell(1).setCellValue(article.getCodeArticle());
+                    sheet.getRow(compteurLigne).createCell(2).setCellValue(article.getEmplacement());
+                    sheet.getRow(compteurLigne).createCell(3).setCellValue(article.getEcart());
+                    compteurLigne++;
+                }
+                }
     }
 }
